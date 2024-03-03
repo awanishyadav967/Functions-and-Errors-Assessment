@@ -1,29 +1,33 @@
 // SPDX-License-Identifier: MIT
+//Author-Avanish
 pragma solidity ^0.8.0;
 
-contract ExampleContract {
-    address public owner;
-    uint256 public value;
+contract EnhancedContract {
+    address public creatorAddress;
+    uint256 public storedData;
 
     constructor() {
-        owner = msg.sender;
+        creatorAddress = msg.sender;
     }
 
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Only the owner can call this function");
+    modifier onlyCreator() {
+        require(msg.sender == creatorAddress, "Only the creator can call this function");
         _;
     }
 
-    function setValue(uint256 _newValue) external onlyOwner {
-        
-        require(_newValue > 0, "New value must be greater than zero");
-        
-        assert(_newValue <= type(uint256).max);
+    function updateStoredData(uint256 newValue) external onlyCreator {
+        // Ensure the new stored data is a positive number
+        require(newValue > 0, "New stored data must be greater than zero");
 
-        if (_newValue == 42) {
-            revert("The new value cannot be 42");
+        // Use assert to check if the new stored data is within the allowed range
+        assert(newValue <= type(uint256).max);
+
+        // Prohibit setting the stored data to 42
+        if (newValue == 50) {
+            revert("The new stored data cannot be 50");
         }
 
-        value = _newValue;
+        // Update the stored data value
+        storedData = newValue;
     }
 }
