@@ -1,33 +1,24 @@
 // SPDX-License-Identifier: MIT
-//Author-Avanish
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.18;
 
-contract EnhancedContract {
-    address public creatorAddress;
-    uint256 public storedData;
+contract OwnershipContract {
+    address public owner;
 
     constructor() {
-        creatorAddress = msg.sender;
+        owner = msg.sender;
     }
 
-    modifier onlyCreator() {
-        require(msg.sender == creatorAddress, "Only the creator can call this function");
-        _;
+    function onlyOwner() public view {
+        require(msg.sender == owner, "Only the owner can call this function.");
     }
 
-    function updateStoredData(uint256 newValue) external onlyCreator {
-        // Ensure the new stored data is a positive number
-        require(newValue > 0, "New stored data must be greater than zero");
-
-        // Use assert to check if the new stored data is within the allowed range
-        assert(newValue <= type(uint256).max);
-
-        // Prohibit setting the stored data to 42
-        if (newValue == 50) {
-            revert("The new stored data cannot be 50");
+    function onwerHere() public view {
+        if(msg.sender!= owner){
+            revert("The caller is not the owner.");
         }
+    }
 
-        // Update the stored data value
-        storedData = newValue;
+    function Owner() public view {
+        assert(msg.sender == owner);
     }
 }
