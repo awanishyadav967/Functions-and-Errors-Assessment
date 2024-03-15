@@ -27,4 +27,4 @@ git clone https://github.com/your-username/your-repo.git
 cd your-repo
 ```
 # Output
-![ExampleContract Screenshot](Screenshot.png)
+![ExampleContract Screenshot](Screenshot1.png)
